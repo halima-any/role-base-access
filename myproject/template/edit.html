@@ -1,0 +1,132 @@
+
+{% extends 'base.html' %}
+
+
+{% block body %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Form</title>
+    <style>body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .container {
+        width: 80%;
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    h1 {
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    label {
+        margin: 10px 0 5px;
+        font-weight: bold;
+    }
+    
+    input, textarea {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-bottom: 15px;
+    }
+    
+    input[type="file"] {
+        border: none;
+    }
+    
+    button {
+        padding: 10px 20px;
+        border: none;
+        background-color: #007bff;
+        color: white;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    
+    button:hover {
+        background-color: #0056b3;
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <hr>
+        <hr>
+    <hr>
+        <h1>Resume edit  Form</h1>
+        <div>
+            
+            {% for i in data %}
+                
+                
+        <form action="{% url 'update' %}" method="POST" enctype="multipart/form-data">
+
+
+            {% csrf_token %}
+
+            <input type="id" id="id"value="{{i.id}}" name="id" required>
+
+
+            <label for="Gender">Gender:</label>
+            
+            
+    <select id="Gender" name="Gender" required>
+      <option value="male" {% if data.gender_type == 'male' %} selected {% endif %}>MALE</option>
+      <option value="female" {% if data.gender_type == 'female' %} selected {% endif %}>FEMALE</option>
+      <option value="other" {% if data.gender_type == 'other' %} selected {% endif %}>OTHER</option>
+    </select>
+
+
+
+            <label for="skill_title">Skill Title:</label>
+            <input type="text" id="skill_title"value="{{i.skill_title}}" name="skill_title" required>
+
+            <label for="education_title">Education Title:</label>
+            <input type="text" id="education_title" value="{{i.education_title}}"name="education_title" required>
+
+            <label for="language">Languages:</label>
+            <input type="text" id="language"value="{{i.language}}" name="language" required>
+
+
+
+            <label for="img">Profile Picture:</label>
+            <input type="file" id="img" value="{{i.img}}"name="img"  required>
+
+
+
+            <img src="/{{i.img}}" alt="" height="150px" width="200px">
+            <input type="hidden" id="language"value="{{i.img}}" name="old_img" required>
+
+
+
+            <button type="submit">Add  edit Resume</button>
+        </form>
+        {% endfor %}
+
+
+    </div>
+</body>
+</html>
+
+    
+{% endblock body %}
